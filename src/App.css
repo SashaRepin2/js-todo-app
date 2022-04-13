@@ -43,7 +43,7 @@ body {
 	justify-content: start;
 	width: 520px;
 	min-height: 600px;
-	background: #161a2b;
+	background-color: rgba(22, 26, 43, 0.8);
 	text-align: center;
 	margin: 128px auto;
 	border-radius: 10px;
@@ -55,12 +55,20 @@ body {
 	flex-direction: column;
 }
 
-.delete-icon {
-	margin-right: 10px;
-	color: rgb(255, 255, 255);
+#open-modal {
+	position: fixed;
+	height: 70px;
+	width: 70px;
+	padding: 5px;
+	bottom: 45px;
+	right: 45px;
+	border-radius: 50%;
+	border: none;
+	background-color: rgb(131, 24, 231);
 }
 
-.edit-icon {
-	margin-right: 10px;
-	color: rgb(228, 228, 228);
+#open-modal svg {
+	height: 35px;
+	width: 35px;
+	color: rgb(255, 255, 255);
 }
