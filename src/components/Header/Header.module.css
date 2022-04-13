@@ -1,0 +1,30 @@
+.header {
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	color: white;
+	font-size: 18px;
+	height: 50px;
+	position: fixed;
+	z-index: 100;
+	background-color: rgba(0, 0, 255, 0.8);
+	left: 0;
+	top: 0;
+	width: 100%;
+}
+
+.header a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.header a:hover {
+	color: rgba(212, 212, 212, 0.699);
+}
+
+.header__logo_text {
+	padding: 5px;
+	margin: 10px 20px;
+	font-weight: bold;
+	font-size: 25px;
+}
