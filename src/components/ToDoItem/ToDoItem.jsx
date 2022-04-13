@@ -3,7 +3,7 @@ import styles from './ToDoItem.module.css';
 import { RiCloseCircleLine } from 'react-icons/ri';
 import { BsCheckCircleFill } from 'react-icons/bs';
 
-const ToDoItem = ({ remove, complete, ...props }) => {
+const ToDoItem = ({ remove, complete, change, ...props }) => {
 	const rootStyles = [styles.todo__item];
 
 	if (props.todo.isCompleted) {
