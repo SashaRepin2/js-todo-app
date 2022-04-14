@@ -6,8 +6,17 @@ import Button from '../components/UI/Button/Button';
 import { MdLibraryAdd } from 'react-icons/md';
 
 const ToDosPage = () => {
-	const [todos, setTodos] = React.useState(JSON.parse(localStorage.getItem('todos') || '[]'));
+	const [todos, setTodos] = React.useState([]);
 	const [isActiveModal, setIsActiveModal] = React.useState(false);
+
+	React.useEffect(() => {
+		const loadedTodos = JSON.parse(localStorage.getItem('todos'));
+		console.log(loadedTodos);
+		if (loadedTodos) {
+			setTodos(loadedTodos);
+			console.log(prev => prev.map(item => item));
+		}
+	}, []);
 
 	React.useEffect(() => {
 		console.log('Save todos');
@@ -19,7 +28,6 @@ const ToDosPage = () => {
 		setIsActiveModal(false);
 	};
 
-	// Получаем post из дочернего компонента
 	const removeTodo = todo => {
 		setTodos(todos.filter(item => item.id !== todo.id));
 	};
@@ -28,6 +36,17 @@ const ToDosPage = () => {
 		setTodos(
 			todos.map(item => {
 				if (item.id === todo.id) item.isCompleted = !item.isCompleted;
+				return item;
+			}),
+		);
+	};
+
+	const changeTodo = todo => {
+		setTodos(
+			todos.map(item => {
+				if (todo.id === item.id) {
+					item = todo;
+				}
 				return item;
 			}),
 		);
@@ -42,8 +61,7 @@ const ToDosPage = () => {
 			<Modal visible={isActiveModal} setVisible={setIsActiveModal}>
 				<ToDoForm createTodo={createTodo} />
 			</Modal>
-
-			<ToDoList remove={removeTodo} complete={completeTodo} todos={todos}></ToDoList>
+			<ToDoList remove={removeTodo} complete={completeTodo} change={changeTodo} todos={todos} />
 		</div>
 	);
 };
