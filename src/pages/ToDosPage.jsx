@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ToDoList from '../components/ToDoList/ToDoList';
 import Modal from '../components/UI/Modal/Modal';
 import ToDoForm from '../components/ToDoForm/ToDoForm';
@@ -6,20 +6,18 @@ import Button from '../components/UI/Button/Button';
 import { MdLibraryAdd } from 'react-icons/md';
 
 const ToDosPage = () => {
-	const [todos, setTodos] = React.useState([]);
-	const [isActiveModal, setIsActiveModal] = React.useState(false);
+	const [todos, setTodos] = useState([]);
+	const [editTodo, setEditTodo] = useState(null);
+	const [isActiveModal, setIsActiveModal] = useState(false);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		const loadedTodos = JSON.parse(localStorage.getItem('todos'));
-		console.log(loadedTodos);
 		if (loadedTodos) {
 			setTodos(loadedTodos);
-			console.log(prev => prev.map(item => item));
 		}
 	}, []);
 
-	React.useEffect(() => {
-		console.log('Save todos');
+	useEffect(() => {
 		localStorage.setItem('todos', JSON.stringify(todos));
 	}, [todos]);
 
@@ -50,6 +48,8 @@ const ToDosPage = () => {
 				return item;
 			}),
 		);
+		setIsActiveModal(false);
+		setEditTodo(null);
 	};
 
 	return (
@@ -58,10 +58,21 @@ const ToDosPage = () => {
 				<MdLibraryAdd />
 			</Button>
 
-			<Modal visible={isActiveModal} setVisible={setIsActiveModal}>
-				<ToDoForm createTodo={createTodo} />
+			<Modal
+				visible={isActiveModal}
+				setInvisible={() => {
+					setEditTodo(null);
+					setIsActiveModal(false);
+				}}>
+				<ToDoForm createTodo={createTodo} changeTodo={changeTodo} changeableTodo={editTodo} />
 			</Modal>
-			<ToDoList remove={removeTodo} complete={completeTodo} change={changeTodo} todos={todos} />
+			<ToDoList
+				remove={removeTodo}
+				complete={completeTodo}
+				setEditTodo={setEditTodo}
+				setIsActiveModal={setIsActiveModal}
+				todos={todos}
+			/>
 		</div>
 	);
 };

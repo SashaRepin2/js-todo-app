@@ -77,12 +77,27 @@
 	pointer-events: none;
 }
 
-.delete_icon {
-	margin-right: 10px;
-	color: rgb(255, 255, 255);
-}
-
+.delete_icon,
+.change_icon,
 .completed_icon {
 	margin-right: 10px;
-	color: white;
+	color: #fff;
+	height: 24px;
+	width: 24px;
+}
+
+.delete_icon:hover {
+	color: red;
+}
+
+.todo__item.completed .completed_icon:hover {
+	color: red;
+}
+
+.completed_icon:hover {
+	color: rgb(67, 196, 67);
+}
+
+.change_icon:hover {
+	color: rgb(243, 230, 46);
 }

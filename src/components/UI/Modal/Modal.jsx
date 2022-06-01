@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Modal.module.css';
 
-const Modal = ({ children, visible, setVisible }) => {
+const Modal = ({ children, visible, setInvisible }) => {
 	const rootStyles = [styles.modal];
 
 	if (visible) {
@@ -9,7 +9,7 @@ const Modal = ({ children, visible, setVisible }) => {
 	}
 
 	return (
-		<div className={rootStyles.join(' ')} onClick={() => setVisible(false)}>
+		<div className={rootStyles.join(' ')} onClick={setInvisible}>
 			<div className={styles.modal__content} onClick={e => e.stopPropagation()}>
 				{children}
 			</div>

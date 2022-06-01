@@ -1,19 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '../UI/Button/Button';
 import Input from '../UI/Input/Input';
 import styles from './ToDoForm.module.css';
 
-const ToDoForm = ({ createTodo }) => {
-	const [todo, setTodo] = React.useState({ title: '', description: '' });
+const ToDoForm = ({ createTodo, changeTodo, changeableTodo }) => {
+	const [todo, setTodo] = useState({
+		title: '',
+		description: '',
+	});
 
-	const addNewPost = e => {
+	useEffect(() => {
+		if (changeableTodo) {
+			setTodo({ title: changeableTodo.title, description: changeableTodo.description });
+		} else {
+			setTodo({
+				title: '',
+				description: '',
+			});
+		}
+	}, [changeableTodo]);
+
+	const addNewTodoModal = e => {
 		e.preventDefault();
-		const newPost = {
+		const newTodo = {
 			...todo,
+			isCompleted: false,
 			id: Date.now(),
 		};
-		createTodo(newPost);
-		setTodo({ title: '', description: '', isCompleted: false });
+		createTodo(newTodo);
+		setTodo({ title: '', description: '' });
+	};
+
+	const changeTodoModal = e => {
+		e.preventDefault();
+		const editableTodo = {
+			...changeableTodo,
+			...todo,
+		};
+		changeTodo(editableTodo);
+		setTodo({ title: '', description: '' });
 	};
 
 	return (
@@ -32,9 +57,16 @@ const ToDoForm = ({ createTodo }) => {
 				type='text'
 				placeholder='Описание'
 			/>
-			<Button onClick={addNewPost} style={{ fontWeight: 'bold' }}>
-				Добавить ToDo
-			</Button>
+
+			{changeableTodo ? (
+				<Button onClick={changeTodoModal} style={{ fontWeight: 'bold' }}>
+					Изменить ToDo
+				</Button>
+			) : (
+				<Button onClick={addNewTodoModal} style={{ fontWeight: 'bold' }}>
+					Добавить ToDo
+				</Button>
+			)}
 		</form>
 	);
 };
